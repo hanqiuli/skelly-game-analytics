@@ -20,6 +20,12 @@ class Highscore(db.Model):
     score = db.Column(db.Integer, nullable=False)
     date_achieved = db.Column(db.DateTime, default=db.func.current_timestamp())
 
+class NumberEntry(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    number = db.Column(db.Integer, nullable=False)
+
+    def __repr__(self):
+        return f'<NumberEntry {self.number}>'
 
 #### FRONTEND ROUTES ####
 
@@ -60,6 +66,11 @@ def time_played():
     players = Player.query.all()
     return render_template('time_played.html', players=players)
 
+@app.route('/view_numbers')
+def view_numbers():
+    numbers = NumberEntry.query.all()
+    return render_template('view_numbers.html', numbers=numbers)
+
 
 #### ROUTES TO ADD STUFF TO THE DATABASE ####
 
@@ -97,6 +108,14 @@ def update_time_played_json():
         db.session.commit()
         return jsonify({"message": "Time updated successfully"}), 200
     return jsonify({"error": "Player not found"}), 404
+
+@app.route('/submit_number', methods=['POST'])
+def submit_number():
+    data = request.get_json()
+    new_number = NumberEntry(number=data['number'])
+    db.session.add(new_number)
+    db.session.commit()
+    return {"message": "Number added successfully"}, 200
 
 # Add other routes as needed...
 
