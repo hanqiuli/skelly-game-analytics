@@ -44,6 +44,11 @@ def add_player():
         return redirect(url_for('add_player'))
     return render_template('add_player.html')
 
+@app.route('/all_players', methods=['GET', 'POST'])
+def all_players():
+    players = Player.query.all()
+    return render_template('all_players.html', players=players)
+
 @app.route('/submit_score', methods=['GET', 'POST'])
 def submit_score():
     if request.method == 'POST':
