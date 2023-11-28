@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Highscores</title>
+</head>
+<body>
+    <h1>Highscores</h1>
+    <table>
+        <tr>
+            <th>Player ID</th>
+            <th>Score</th>
+            <th>Date Achieved</th>
+        </tr>
+        {% for score in scores %}
+        <tr>
+            <td>{{ score.player_id }}</td>
+            <td>{{ score.score }}</td>
+            <td>{{ score.date_achieved.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <a href="/">Back to Home</a>
+</body>
+</html>

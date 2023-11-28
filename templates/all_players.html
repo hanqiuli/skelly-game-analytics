@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>All Players</title>
+</head>
+<body>
+    <h1>All Players</h1>
+    <ul>
+        {% for player in players %}
+        <li>{{ player.username }} - Joined: {{ player.date_joined }}</li>
+        {% endfor %}
+    </ul>
+    <p><a href="/">Back to Home</a></p>
+</body>
+</html>

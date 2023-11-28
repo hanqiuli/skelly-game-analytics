@@ -1,16 +1,22 @@
 from flask import Flask, request, render_template, redirect, url_for
+from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
+
 app = Flask(__name__)
 
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://username:password@localhost/game_data'
 app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://fwsbrmejpihtpr:63694976e4b5c59af5029d3802c625c2ab89828c15f55049f86fe58156f744e9@ec2-34-250-252-161.eu-west-1.compute.amazonaws.com:5432/d3m1dq8b7u0ors"
 
-from flask_sqlalchemy import SQLAlchemy
+
 db = SQLAlchemy(app)
+migrate = Migrate(app, db)
 
 class Player(db.Model):
     player_id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(50), unique=True, nullable=False)
+    email = db.Column(db.String(120), unique=True, nullable=False)
     date_joined = db.Column(db.DateTime, default=db.func.current_timestamp())
+    time_played = db.Column(db.Float, default=0)
 
 class Highscore(db.Model):
     score_id = db.Column(db.Integer, primary_key=True)
@@ -53,6 +59,16 @@ def submit_score():
 def highscores():
     scores = Highscore.query.order_by(Highscore.score.desc()).all()
     return render_template('highscores.html', scores=scores)
+
+@app.route('/players_time_played')
+def players_time_played():
+    players = Player.query.all()
+    return render_template('players_time_played.html', players=players)
+
+@app.route('/all_players')
+def all_players():
+    players = Player.query.all()
+    return render_template('all_players.html', players=players)
 
 if __name__ == '__main__':
     app.run(debug=True)
