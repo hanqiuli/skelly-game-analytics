@@ -119,17 +119,19 @@ def update_time_played_json():
 
 @app.route('/submit_number', methods=['POST'])
 def submit_number():
-    # Log raw request data
-    app.logger.info(f"Raw request data: {request.data}")
-
-    data = request.get_json()
-    if 'number' not in data:
-        return {"error": "No 'number' key in JSON"}, 400
-
-    new_number = NumberEntry(number=data['number'])
-    db.session.add(new_number)
-    db.session.commit()
-    return {"message": "Number added successfully"}, 200
+    try:
+        data = request.get_json()
+        print("Received data:", data)  # Log the received data
+        new_number = NumberEntry(number=data['number'])
+        db.session.add(new_number)
+        db.session.commit()
+        return {"message": "Number added successfully"}, 200
+    except KeyError as e:
+        print("KeyError:", e)
+        return {"error": f"Missing key: {e}"}, 400
+    except Exception as e:
+        print("Error:", e)
+        return {"error": str(e)}, 500
 
 # Add other routes as needed...
 
