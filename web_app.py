@@ -1,4 +1,5 @@
 from flask import Flask, request, render_template, redirect, url_for, jsonify
+from flask_migrate import Migrate
 from datetime import timedelta
 import json
 
@@ -8,6 +9,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://fwsbrmejpihtpr:63694976e4b
 
 from flask_sqlalchemy import SQLAlchemy
 db = SQLAlchemy(app)
+migrate = Migrate(app, db)
 
 class Player(db.Model):
     player_id = db.Column(db.Integer, primary_key=True)
@@ -50,6 +52,11 @@ def all_players():
     players = Player.query.all()
     return render_template('all_players.html', players=players)
 
+@app.route('/time_played', methods=['GET', 'POST'])
+def time_played():
+    players = Player.query.all()
+    return render_template('players_time_played.html', players=players)
+
 @app.route('/submit_score', methods=['GET', 'POST'])
 def submit_score():
     if request.method == 'POST':
@@ -66,11 +73,6 @@ def submit_score():
 def highscores():
     scores = Highscore.query.order_by(Highscore.score.desc()).all()
     return render_template('highscores.html', scores=scores)
-
-@app.route('/time_played')
-def time_played():
-    players = Player.query.all()
-    return render_template('time_played.html', players=players)
 
 @app.route('/view_numbers')
 def view_numbers():
