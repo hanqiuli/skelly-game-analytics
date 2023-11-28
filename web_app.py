@@ -119,7 +119,13 @@ def update_time_played_json():
 
 @app.route('/submit_number', methods=['POST'])
 def submit_number():
+    # Log raw request data
+    app.logger.info(f"Raw request data: {request.data}")
+
     data = request.get_json()
+    if 'number' not in data:
+        return {"error": "No 'number' key in JSON"}, 400
+
     new_number = NumberEntry(number=data['number'])
     db.session.add(new_number)
     db.session.commit()
