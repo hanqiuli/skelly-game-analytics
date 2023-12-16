@@ -1,0 +1,26 @@
+<!-- templates/view_data.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Game Analytics</title>
+</head>
+<body>
+    <h1>Game Analytics Data</h1>
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Data</th>
+            <th>Timestamp</th>
+        </tr>
+        {% for stat in game_stats %}
+        <tr>
+            <td>{{ stat.id }}</td>
+            <td><pre>{{ stat.data | tojson | safe }}</pre></td>
+            <td>{{ stat.timestamp }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
