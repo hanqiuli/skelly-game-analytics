@@ -10,9 +10,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://fwsbrmejpihtpr:63694976e4b
 from flask_sqlalchemy import SQLAlchemy
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
-
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-db = SQLAlchemy(app)
 class GameStats(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     data = db.Column(db.JSON)  # Stores the JSON data of game stats
