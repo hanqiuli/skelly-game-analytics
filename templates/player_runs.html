@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Player Story Runs</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Player Story Runs (Username: {{ username }})</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Run ID</th>
+                    <th>Timestamp</th>
+                    <th>Is Game Over</th>
+                    <th>Skelly Deaths</th>
+                    <th>Enemies Killed</th>
+                    <th>Damage Done</th>
+                    <th>Damage Taken</th>
+                    <th>Heavy Attacks Used</th>
+                    <th>Light Attacks Used</th>
+                    <th>Dashes Used</th>
+                    <th>Distance Traveled</th>
+                    <th>Time Elapsed</th>
+                    <th>Current Level</th>
+                    <th>Player X Position</th>
+                    <th>Player Y Position</th>
+                    <th>Player Z Position</th>
+                    <th>Health at Save Time</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for run in runs %}
+                    <tr>
+                        <td>{{ run.id }}</td>
+                        <td>{{ run.timestamp }}</td>
+                        <td>{{ run.isGameOver }}</td>
+                        <td>{{ run.skellyDeaths }}</td>
+                        <td>{{ run.enemiesKilled }}</td>
+                        <td>{{ run.damageDone }}</td>
+                        <td>{{ run.damageTaken }}</td>
+                        <td>{{ run.heavyAttacksUsed }}</td>
+                        <td>{{ run.lightAttacksUsed }}</td>
+                        <td>{{ run.dashesUsed }}</td>
+                        <td>{{ run.distanceTraveled }}</td>
+                        <td>{{ run.timeElapsed }}</td>
+                        <td>{{ run.currentLevel }}</td>
+                        <td>{{ run.playerXPosition }}</td>
+                        <td>{{ run.playerYPosition }}</td>
+                        <td>{{ run.playerZPosition }}</td>
+                        <td>{{ run.healthAtSaveTime }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
