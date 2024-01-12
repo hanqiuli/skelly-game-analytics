@@ -380,7 +380,7 @@ def save_story_run():
         db.session.commit()
         return jsonify({'message': 'Run saved successfully', 'id': new_run.id}), 201
     else:
-        return jsonify({'error': 'User not found'}), 404
+        return jsonify({'error': 'User not found'}), 333
     
 # endpoint to save an endless run, called when player dies (if quits, doesnt save)
 @app.route('/unity/save_endless_run', methods=['POST'])
