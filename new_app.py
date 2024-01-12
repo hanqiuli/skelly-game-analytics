@@ -414,6 +414,11 @@ def save_endless_run():
 def get_user_story_stats(username):
     # Check if the user exists
     user = UserStats.query.filter_by(username=username).first()
+    if not user:
+        # If user does not exist, create a new user with default values
+        user = UserStats(username=username)
+        db.session.add(user)
+        db.session.commit()
     # Retrieve and return user statistics
     user_stats = user.user_story_stats_to_dict()
     return jsonify({'user_stats': user_stats}), 200
@@ -422,7 +427,6 @@ def get_user_story_stats(username):
 def get_total_user_stats(username):
     # Fetch the user from the database
     user = UserStats.query.filter_by(username=username).first()
-
     # Check if the user exists
     if not user:
         return jsonify({'error': 'User not found'}), 404
