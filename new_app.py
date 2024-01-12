@@ -454,21 +454,22 @@ def get_user_settings(username):
     return jsonify({'user_settings': user_settings}), 200
 
 # endpoint to update user_story_stats, called after each run
-@app.route('/unity/update_user_story_stats', methods=['POST'])
+@app.route('/unity/update_user_story_stats', methods=['PUT'])
 def update_user_story_stats():
     data = request.json
     user = UserStats.query.filter_by(username=data['username']).first()
     if not user:
         return jsonify({'error': 'User not found'}), 404
+
     # Update user persistent story data
     user.mementosCollected = data['mementosCollected']
     user.upgradesMilkCollected = data['upgradesMilkCollected']
-    user.levelReached = data['levelReached'] if data['levelReached'] > user.levelReached else user.levelReached # only update if new level is higher
+    user.levelReached = max(data['levelReached'], user.levelReached)  # Update to the higher level
     user.weaponEquipped = data['weaponEquipped']
     user.skullHammerPickedUpJoe = data['skullHammerPickedUpJoe']
     user.ribberanPickedUpJane = data['ribberanPickedUpJane']
     user.boneSwordFabulaPickedUp = data['boneSwordFabulaPickedUp']
-    user.QuestsCompleted = data['QuestsCompleted'] # what to do with this? ask marissa
+    user.QuestsCompleted = data['QuestsCompleted']
     
     db.session.commit()
     return jsonify({'message': 'User stats updated successfully', 'username': user.username}), 200
