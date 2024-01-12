@@ -100,7 +100,7 @@ def update_total_user_stats(user):
 class UserStats(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     #username
-    username = db.Column(db.String(50), unique=True, nullable=False)
+    username = db.Column(db.String(50), unique=True)
 
     # User story stats
     mementosCollected = db.Column(db.Integer, default=0)
