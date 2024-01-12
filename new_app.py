@@ -463,7 +463,6 @@ def update_user_story_stats():
 
     # Update user persistent story data
     user.mementosCollected = data['mementosCollected']
-    user.upgradesMilkCollected = data['upgradesMilkCollected']
     user.levelReached = max(data['levelReached'], user.levelReached)  # Update to the higher level
     user.weaponEquipped = data['weaponEquipped']
     user.skullHammerPickedUpJoe = data['skullHammerPickedUpJoe']
