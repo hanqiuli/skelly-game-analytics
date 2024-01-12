@@ -12,8 +12,8 @@ import json
 app = Flask(__name__)
 CORS(app)
 
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://fwsbrmejpihtpr:63694976e4b5c59af5029d3802c625c2ab89828c15f55049f86fe58156f744e9@ec2-34-250-252-161.eu-west-1.compute.amazonaws.com:5432/d3m1dq8b7u0ors'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://hanqiulicai:hanqiulicai@localhost:5434/skelly'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://fwsbrmejpihtpr:63694976e4b5c59af5029d3802c625c2ab89828c15f55049f86fe58156f744e9@ec2-34-250-252-161.eu-west-1.compute.amazonaws.com:5432/d3m1dq8b7u0ors'
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://hanqiulicai:hanqiulicai@localhost:5434/skelly'
 
 
 from flask_sqlalchemy import SQLAlchemy
