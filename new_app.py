@@ -475,8 +475,7 @@ def update_user_story_stats():
     db.session.commit()
     return jsonify({'message': 'User stats updated successfully', 'username': user.username}), 200
 
-# endpoint to update user settings. called when player changes settings
-@app.route('/unity/update_user_settings', methods=['POST'])
+@app.route('/unity/update_user_settings', methods=['PUT'])
 def update_user_settings():
     data = request.json
     user = UserStats.query.filter_by(username=data['username']).first()
@@ -505,6 +504,7 @@ def update_user_settings():
 
     db.session.commit()
     return jsonify({'message': 'User settings updated successfully', 'username': user.username}), 200
+
 
 if __name__ == '__main__':
     db.create_all()
