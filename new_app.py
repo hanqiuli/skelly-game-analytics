@@ -341,7 +341,7 @@ def retrieve_all_endless_runs():
 def latest_run(username):
     user = UserStats.query.filter_by(username=username).first()
     if user:
-        latest_story_run = GameStats.query.filter_by(user_id=user.id, isGameOver=False).order_by(GameStats.timestamp.desc()).first()
+        latest_story_run = GameStats.query.filter_by(username=username, isGameOver=False).order_by(GameStats.timestamp.desc()).first()
         if latest_story_run:
             return jsonify(latest_story_run.to_dict())
         else:
